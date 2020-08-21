@@ -3,62 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Weather App</title>
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+
+    <style>
+        body {
+            background: url(images/bg-image.jpg) no-repeat;
+            background-size: cover;
+            height: 100vh;
+        }
+        .form{
+            color: white;
+        }
+    </style>
 </head>
 <body>
-    <h1>JSON</h1>
-    <h1>JavaScript Object Notation</h1>
-
-    <ul id="usersContainer">
-
-    </ul>
-
-    <h3 id="user-name">Name</h3>
-
-
+    <!-- <body>
+        <div class="container">
+            <form class="col-md-6 m-auto py-5">
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="Enter a location for Weather ...">
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-danger">Search</button>
+                    </div>
+                </div>
+            </form>
+            <div class="weather-status text-white text-center">
+                <img src="https://openweathermap.org/img/wn/02d@2x.png" alt="">
+                <h1>Dhaka</h1>
+                <h3><span>38.06</span>&deg;C</h3>
+                <h1 class="lead">Clouds</h1>
+            </div>
+        </div>
+    </body> -->
     
+    <div class="text-center">
+        <h1 style="color: brown;">Select your location</h1>
+        <form class="col-md-6 m-auto py-5">
+            <div class="input-group mb-3">
+                <input id="city" type="text" class="form-control" placeholder="Enter a location for Weather ...">
+                <div class="input-group-append">
+                    <button id="submit" type="button" class="btn btn-danger">Search</button>
+                </div>
+            </div>
+        </form>
+        
+        <div class="form">
+            <h3 id="temperature">&deg;C</h3>
+            <h6>Humidity: <span id="humadity"></span></span></h6>
+            <h6>Pressure: <span id="pressure"></span></h6>
+            <h6>Clouds : <span id="clouds"></span></h6>
+            <h6>Weather : <span id="weather"></span> </h6>
+            <h6>Wind : <span id="wind"></span></h6>
+        </div>
+
+    </div>
+
     <script>
-        fetch('https://randomuser.me/api')
-        .then(response => response.json())
-        .then(data => {
-            const user = data.results[0]
-            const name = user.name
-            const userName = `${name.title} ${name.first} ${name.last}`
-            document.getElementById('user-name').innerText = userName
+
+        // fetch('https://ipapi.co/json/')
+        // .then(response => response.json())
+        // .then(data => {
+        //     const location = document.getElementById('location')
+        //     location.innerText = data.city
+
+        // })
+
+        // fetch('http://api.openweathermap.org/data/2.5/weather?q=khulna&appid=571c4cca8c123548ad228d95c9b6e64c')
+        // .then(response => response.json())
+        // .then(data => {
+        //     //console.log(data.main.feels_like)
+        //     const temp = document.getElementById('temperature')
+
+        //     const location = document.getElementById('location')
+        //     location.innerText = data.name
+
+        //     const actualTemp = data.main.temp
+        //     temp.innerText = Math.round(actualTemp - 273.15)
+        // })
+
+
+
+        
+            
+            //console.log(data)
+
+
+            submit.addEventListener('click', function(){
+                const submit = document.getElementById('submit')
+
+                const cityName = document.getElementById('city').value
+                fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=571c4cca8c123548ad228d95c9b6e64c`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+
+                    //console.log(data.main.temp)
+
+                    const temp = document.getElementById('temperature')
+
+                    //const location = document.getElementById('location')
+                    //location.innerText = data.name
+
+                    const actualTemp = data.main.temp
+                    temp.innerText = Math.round(actualTemp - 273.15) + " C"
+
+                    const humadity = document.getElementById('humadity')
+                    humadity.innerText = data.main.humidity + "%"
+
+                    document.getElementById('pressure').innerText = data.main.pressure
+                    document.getElementById('clouds').innerText = data.clouds.all + "%"
+                    document.getElementById('weather').innerText = data.weather[0].description
+
+                    document.getElementById('wind').innerText = Math.round(data.wind.speed) * 1.61 +" km/h"
+
+            }) 
 
         })
 
+        // //const apiKey = '571c4cca8c123548ad228d95c9b6e64c'
+        // const result = document.getElementById('submit')
+        // result.addEventListener('click',function(){
+        //     fetch('https://ipapi.co/43.245.122.90/json/')
+        //     .then(response => response.json())
+        //     .then(data => {
+        //         console.log(data)
+        //         // const result = document.getElementById('submit')
+        //         // result.addEventListener('click',function(){
+        //         //     document.getElementById('location').innerText = data.city
+        //         // })
 
-
-        // function displayUser(users){
-        //     console.log('users',users)
-        //     const userName = users.map(user => user.username)
-        //     const userId = users.map(user => user.id)
-
-        //     console.log('username',userName)
-        //     console.log('userid',userId)
-
-        //     const ul = document.getElementById('usersContainer')
-
-        //     for(let i=0; i<userName.length; i++){
-        //         const user = userName[i]
-        //         const li = document.createElement('li')
-        //         li.innerText = user
-        //         ul.appendChild(li)
-                
-        //     }
-        //     for(let i=0; i<userId.length; i++){
-        //         const id = userId[i]
-        //         if(id == 2){
-        //             const userid = id
-        //             const li = document.createElement('li')
-        //             li.innerText = userid
-        //             ul.appendChild(li)
-        //         }
-        //     }
-        // }
+        //     })
+        // })
 
     </script>
+
     
 </body>
 </html>
