@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+</head>
+<body>
+    <h1>JSON</h1>
+    <h1>JavaScript Object Notation</h1>
+
+    <ul id="usersContainer">
+
+    </ul>
+
+    <h3 id="user-name">Name</h3>
+
+
+    
+    <script>
+        fetch('https://randomuser.me/api')
+        .then(response => response.json())
+        .then(data => {
+            const user = data.results[0]
+            const name = user.name
+            const userName = `${name.title} ${name.first} ${name.last}`
+            document.getElementById('user-name').innerText = userName
+
+        })
+
+
+
+        // function displayUser(users){
+        //     console.log('users',users)
+        //     const userName = users.map(user => user.username)
+        //     const userId = users.map(user => user.id)
+
+        //     console.log('username',userName)
+        //     console.log('userid',userId)
+
+        //     const ul = document.getElementById('usersContainer')
+
+        //     for(let i=0; i<userName.length; i++){
+        //         const user = userName[i]
+        //         const li = document.createElement('li')
+        //         li.innerText = user
+        //         ul.appendChild(li)
+                
+        //     }
+        //     for(let i=0; i<userId.length; i++){
+        //         const id = userId[i]
+        //         if(id == 2){
+        //             const userid = id
+        //             const li = document.createElement('li')
+        //             li.innerText = userid
+        //             ul.appendChild(li)
+        //         }
+        //     }
+        // }
+
+    </script>
+    
+</body>
+</html>
