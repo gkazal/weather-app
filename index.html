@@ -39,7 +39,6 @@
     </body> -->
     
     <div class="text-center">
-        <h1 style="color: brown;">Select your location</h1>
         <form class="col-md-6 m-auto py-5">
             <div class="input-group mb-3">
                 <input id="city" type="text" class="form-control" placeholder="Enter a location for Weather ...">
@@ -50,12 +49,14 @@
         </form>
         
         <div class="form">
-            <h3 id="temperature"></h3>
+            <h3 id="name"></h3>
+            <h3><span id="temperature"></span>&deg;C</h3>
+            <img id="icon" src="" alt="">
+            <h6>Weather : <span id="weather"></span> </h6>
+
             <h6>Humidity: <span id="humadity"></span></span></h6>
-            <h6 id="visibility"></h6>
             <h6>Pressure: <span id="pressure"></span></h6>
             <h6>Clouds : <span id="clouds"></span></h6>
-            <h6>Weather : <span id="weather"></span> </h6>
             <h6>Wind : <span id="wind"></span></h6>
         </div>
 
@@ -102,18 +103,21 @@
 
                     //console.log(data.main.temp)
 
+                    document.getElementById('name').innerText = data.name
+
                     const temp = document.getElementById('temperature')
 
                     //const location = document.getElementById('location')
                     //location.innerText = data.name
 
                     const actualTemp = data.main.temp
-                    temp.innerText = Math.round(actualTemp - 273.15) + " C"
+                    temp.innerText = Math.round(actualTemp - 273.15) 
 
                     const humadity = document.getElementById('humadity')
                     humadity.innerText = data.main.humidity + "%"
 
-                    document.getElementById('visibility').innerText = `http://openweathermap.org/img/w/${weather.icon}.png`
+                    document.getElementById('icon').setAttribute('src', `https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);
+
 
 
                     document.getElementById('pressure').innerText = data.main.pressure
@@ -121,6 +125,8 @@
                     document.getElementById('weather').innerText = data.weather[0].description
 
                     document.getElementById('wind').innerText = Math.round(data.wind.speed) * 1.61 +" km/h"
+                    document.getElementById('city').value = "";
+
 
             }) 
 
