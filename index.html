@@ -50,8 +50,9 @@
         </form>
         
         <div class="form">
-            <h3 id="temperature">&deg;C</h3>
+            <h3 id="temperature"></h3>
             <h6>Humidity: <span id="humadity"></span></span></h6>
+            <h6 id="visibility"></h6>
             <h6>Pressure: <span id="pressure"></span></h6>
             <h6>Clouds : <span id="clouds"></span></h6>
             <h6>Weather : <span id="weather"></span> </h6>
@@ -94,7 +95,7 @@
                 const submit = document.getElementById('submit')
 
                 const cityName = document.getElementById('city').value
-                fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=571c4cca8c123548ad228d95c9b6e64c`)
+                fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city.value}&appid=571c4cca8c123548ad228d95c9b6e64c`)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data)
@@ -111,6 +112,9 @@
 
                     const humadity = document.getElementById('humadity')
                     humadity.innerText = data.main.humidity + "%"
+
+                    document.getElementById('visibility').innerText = `http://openweathermap.org/img/w/${weather.icon}.png`
+
 
                     document.getElementById('pressure').innerText = data.main.pressure
                     document.getElementById('clouds').innerText = data.clouds.all + "%"
